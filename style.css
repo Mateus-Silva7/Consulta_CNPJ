@@ -1,0 +1,182 @@
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+body {
+    font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    background-color:white
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+h1 {
+  color:#2c3e50;
+  text-align:center;
+  margin-bottom: 30px;
+  font-weight: 600;
+  font-size: 2.2rem;
+}
+
+#formulario {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+#formulario input {
+    flex: 1;
+    padding: 12px 15px ;
+    border: 2px solid #dee2e6;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+#formulario input:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+}
+
+button {
+   padding: 12px 20px;
+    background-color: #4CAF50;  
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+button:hover {
+    background-color:#3d8b40;
+    transform: translateY(-2px);
+}
+
+#resultado { 
+    margin: 30px;
+    padding: 25px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    background-color:white
+}
+
+/* Estilos para os botões de exportação que estão diretamente no container */
+.container > button {
+    width: 100%;
+    margin-top: 10px;
+   
+}
+
+button[onclick="exportarParaPDF()"] {
+    background-color:  #D0021B;
+    color: white;
+}
+
+button[onclick="exportarParaPDF()"]:hover {
+    background-color: #A00D19; 
+}
+
+button[onclick="exportarParaPDF()"]::before {
+    content: "📄";
+    margin-right: 8px;
+}
+
+button[onclick="exportarParaExcel()"] {
+    background-color: #217346;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+button[onclick="exportarParaExcel()"]:hover {
+    background-color: #1A5C38;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+button[onclick="exportarParaExcel()"]::before {
+    content: "📊";
+    margin-right: 8px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+  
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+  
+  #formulario {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  #resultado {
+    margin: 20px;
+    padding: 15px;
+  }
+}
+
+/* Celulares (480px ou menos) */
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+  
+  .container {
+    padding: 15px;
+  }
+  
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+  
+  #formulario input,
+  button {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
+  
+  #resultado {
+    margin: 15px 0;
+    padding: 12px;
+  }
+  
+  .container > button {
+    margin-top: 8px;
+  }
+  
+  button[onclick="exportarParaPDF()"]::before,
+  button[onclick="exportarParaExcel()"]::before {
+    margin-right: 5px;
+  }
+}
+
+/* Telas muito pequenas (360px ou menos) */
+@media (max-width: 360px) {
+  h1 {
+    font-size: 1.3rem;
+  }
+  
+  #formulario input,
+  button {
+    padding: 8px 10px;
+  }
+}
