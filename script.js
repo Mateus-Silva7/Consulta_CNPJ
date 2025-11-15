@@ -83,19 +83,42 @@ function exportarParaPDF() {
 }
 
 function exportarParaExcel() {
-    const wb = XLSX.utils.book_new();
-    const ws_data = [];
-    const resultado = document.querySelectorAll('#resultado p, #resultado h2, #resultado ul, #resultado li');
-
-    resultado.forEach((item) => {
-        if (item.tagName === 'LI') {
-            ws_data.push([`- ${item.textContent}`]);
-        } else if (item.tagName !== 'UL') {
-            ws_data.push([item.textContent]);
+    try {
+        // Verifica se a biblioteca XLSX está carregada
+        if (typeof XLSX === 'undefined') {
+            throw new Error('Biblioteca SheetJS não foi carregada. Verifique o script no HTML.');
         }
-    });
 
-    const ws = XLSX.utils.oao_to_sheet(ws_data);
-    XLSX.utils.book_append_sheet(wb, ws, "Informações");
-    XLSX.writeFile(wb, 'informacoes-empresa.xlsx');
+        const wb = XLSX.utils.book_new();
+        const ws_data = [];
+        const resultado = document.querySelectorAll('#resultado p, #resultado h2, #resultado ul, #resultado li');
+
+        // Verifica se há dados para exportar
+        if (resultado.length === 0) {
+            throw new Error('Nenhum dado encontrado para exportar. Busque um CNPJ primeiro.');
+        }
+
+        resultado.forEach((item) => {
+            if (item.tagName === 'LI') {
+                ws_data.push([`• ${item.textContent.trim()}`]);
+            } else if (item.tagName !== 'UL') {
+                ws_data.push([item.textContent.trim()]);
+            }
+        });
+
+        // CORREÇÃO: função correta
+        const ws = XLSX.utils.aoa_to_sheet(ws_data);
+        
+        // Ajusta a largura da coluna para melhor visualização
+        ws['!cols'] = [{ wch: 80 }];
+        
+        XLSX.utils.book_append_sheet(wb, ws, "Informações da Empresa");
+        XLSX.writeFile(wb, 'informacoes-empresa.xlsx');
+        
+        console.log('Arquivo Excel exportado com sucesso!');
+        
+    } catch (erro) {
+        console.error('Erro ao exportar para Excel:', erro);
+        alert('Erro ao exportar para Excel: ' + erro.message);
+    }
 }
